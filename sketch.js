@@ -1,5 +1,5 @@
 
-var symbolSize = 20;
+var symbolSize = 30;
 var streams = [];
 
 function setup(){
@@ -21,17 +21,17 @@ function draw(){
     })
 }
 
-function Symbol(x, y,speed) {
+function Symbol(x, y,speed,first) {
     this.x = x;
     this.y = y;
     this.value;
     this.speed = speed;
     this.interval = round(random(2,40));
-
+    this.first = first;
     this.setToRandomSymbol = function() {
         if(frameCount % this.interval == 0){
             this.value = String.fromCharCode(
-                0x0900 + round(random(0, 128))
+                0x0904 + random(round(random(0, 32)),round(random(62, 72)))
             );
         }
     }
@@ -44,18 +44,25 @@ function Stream() {
     this.symbols = [];
     this.totalSymbols = round(random(5,30));
     this.speed = random(1,15);
+
     this.generateSymbols = function(x,y) {
+        var first = round(random(0,4)) == 1;
         for (var i = 0; i <= this.totalSymbols; i++){
-            symbol = new Symbol(x,y,this.speed);
+            symbol = new Symbol(x,y,this.speed,first);
             symbol.setToRandomSymbol();
             this.symbols.push(symbol);
             y -= symbolSize+2;
+            first = false;
         }
     }
 
     this.render = function() {
         this.symbols.forEach( function(symbol) {
-            fill(0, 255, 70);
+            if(symbol.first){
+                fill(180,255,180);
+            }else{
+                fill(0, 255, 70);
+            }
             text(symbol.value, symbol.x, symbol.y);
             symbol.rain();
             symbol.setToRandomSymbol();
