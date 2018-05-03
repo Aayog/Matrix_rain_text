@@ -5,6 +5,7 @@ var streams = [];
 function setup(){
     createCanvas(window.innerWidth, window.innerHeight);
     textSize(symbolSize);
+    frameRate(60);
     var x = 0;
     for ( var i = 0; i < width / symbolSize; i++ ){
         var stream = new Stream();
