@@ -15,7 +15,7 @@ function setup(){
 }
 
 function draw(){
-    background(0,150);
+    background(0);
     streams.forEach(function (stream) {
         stream.render();
     })
@@ -26,12 +26,12 @@ function Symbol(x, y,speed,first) {
     this.y = y;
     this.value;
     this.speed = speed;
-    this.interval = round(random(2,40));
+    this.interval = round(random(2,60));
     this.first = first;
     this.setToRandomSymbol = function() {
         if(frameCount % this.interval == 0){
             this.value = String.fromCharCode(
-                0x0904 + random(round(random(0, 32)),round(random(62, 72)))
+                0x0904 + round(random(0,35))
             );
         }
     }
@@ -43,7 +43,7 @@ function Symbol(x, y,speed,first) {
 function Stream() {
     this.symbols = [];
     this.totalSymbols = round(random(5,30));
-    this.speed = random(1,15);
+    this.speed = random(1,10);
 
     this.generateSymbols = function(x,y) {
         var first = round(random(0,4)) == 1;
