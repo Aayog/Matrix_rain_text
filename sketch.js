@@ -1,7 +1,7 @@
 
 var symbolSize = 30;
 var streams = [];
-var unicode =0x30A0;
+var unicode =0x0904;
 var limit = (unicode == 0x30A0)? 96 : 35;
 function setup(){
     createCanvas(window.innerWidth, window.innerHeight);
