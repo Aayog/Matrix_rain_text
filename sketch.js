@@ -1,11 +1,11 @@
 
 var symbolSize = 30;
 var streams = [];
-
+var unicode =0x30A0;
+var limit = (unicode == 0x30A0)? 96 : 35;
 function setup(){
     createCanvas(window.innerWidth, window.innerHeight);
     textSize(symbolSize);
-    frameRate(60);
     var x = 0;
     for ( var i = 0; i < width / symbolSize; i++ ){
         var stream = new Stream();
@@ -32,7 +32,8 @@ function Symbol(x, y,speed,first) {
     this.setToRandomSymbol = function() {
         if(frameCount % this.interval == 0){
             this.value = String.fromCharCode(
-                0x0904 + round(random(0,35))
+                // 0x0904 + round(random(0,35))
+                unicode + round(random(0,limit))
             );
         }
     }
@@ -69,4 +70,16 @@ function Stream() {
             symbol.setToRandomSymbol();
         });
     }
+}
+function mousePressed(){
+    if(unicode == 0x30A0){
+        unicode = 0x0904;
+        limit = 35;
+    }else{
+        unicode = 0x30A0;
+        limit = 96;
+    }
+}
+function keyPressed(){
+    mousePressed();
 }
