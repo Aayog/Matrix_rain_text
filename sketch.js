@@ -20,7 +20,7 @@ function draw(){
     streams.forEach(function (stream) {
         stream.render();
     })
-    if(frameCount < 600){
+    if(frameCount % 60 == 0 && frameCount < 600){
       save("output/gif-" + nf(frameCount, 3) + ".png");  
     }
 }
