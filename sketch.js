@@ -1,12 +1,16 @@
-
+//Single character size
 var symbolSize = 30;
 var streams = [];
+//Nepali letter starting Unicode
 var unicode =0x0904;
+//Limit is different with Chinese symbols and Nepali symbols
 var limit = (unicode == 0x30A0)? 96 : 35;
+
 function setup(){
     createCanvas(window.innerWidth, window.innerHeight);
     textSize(symbolSize);
     var x = 0;
+    //initial stream of all signals
     for ( var i = 0; i < width / symbolSize; i++ ){
         var stream = new Stream();
         stream.generateSymbols(x,random(-500,0));
@@ -15,6 +19,7 @@ function setup(){
     }
 }
 
+//Draw calls the render function of each stream every frame
 function draw(){
     background(0);
     streams.forEach(function (stream) {
@@ -22,13 +27,16 @@ function draw(){
     })
 }
 
+//Symbol class
 function Symbol(x, y,speed,first) {
+    //position and speed of individual symbol
     this.x = x;
     this.y = y;
     this.value;
     this.speed = speed;
     this.interval = round(random(2,60));
     this.first = first;
+    //sets the symbol to random Nepali or Chinese symbols based on the 'unicode' values
     this.setToRandomSymbol = function() {
         if(frameCount % this.interval == 0){
             this.value = String.fromCharCode(
